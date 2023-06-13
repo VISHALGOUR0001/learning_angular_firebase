@@ -9,30 +9,11 @@ import { Firestore } from '@angular/fire/firestore';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  public data;
-  public form = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
-  });
-  constructor(public apiService: ApiService) {
-    this.apiService.getAllData().then((data) => {
-      console.log(data);
-      this.data = data;
-    });
+  constructor(public apiservice:ApiService){
+    this.getData();
   }
-
-  // public async onSubmit() {
-  //   console.log(this.form.value);
-  //   this.apiService.createData(this.form.value).then(() => {
-  //     window.location.reload();
-  //   });
-  // }
-
-  public get name(): AbstractControl {
-    return this.form.controls['name'];
+  async getData() {
+    const data=await this.apiservice.getproducts();
+    console.log(data);
   }
-
-  public get email(): AbstractControl {
-    return this.form.controls['email'];
-  }
-}
+} 
